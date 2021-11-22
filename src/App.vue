@@ -1,15 +1,16 @@
 <template>
-  <router-view />
-  <Button icon="plus"> </Button>
-  <Button> </Button>
-  <IconButton />
+  <InfoBar />
+  <div class="contain">
+    <Nav />
+    <router-view />
+  </div>
 </template>
 
 <script>
-import Button from "./components/Button.vue";
-import IconButton from "./components/IconButton.vue";
+import Nav from "./components/Nav.vue";
+import InfoBar from "./components/InfoBar.vue";
 export default {
-  components: { Button, IconButton },
+  components: { Nav, InfoBar },
 };
 </script>
 
@@ -18,5 +19,6 @@ export default {
   background: $dark-100;
   width: 100vw;
   height: 100vh;
+  display: flex;
 }
 </style>
