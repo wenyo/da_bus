@@ -9,16 +9,7 @@
         :draggable="true"
         @click="center = m.position"
       />
-      <GMapMarker
-        :position="center"
-        :icon="{
-          url: PositionIcon,
-          scaledSize: { width: 20, height: 20 },
-        }"
-        :clickable="true"
-        label="1"
-      >
-          <div>11</div>
+      <GMapMarker :position="center" :clickable="true" label="1">
         <GMapInfoWindow
           :opened="true"
           :options="{
@@ -40,8 +31,8 @@
 <script>
 import { ref } from "vue";
 import { mapState } from "vuex";
-import MapStyle from "./MapStyle.json";
-import PositionIcon from "../assets/img/position.png";
+import MapStyle from "../assets/map/MapStyle.json";
+// import PositionIcon from "../assets/img/position.png";
 
 export default {
   setup() {
@@ -54,7 +45,7 @@ export default {
   },
   data() {
     return {
-      PositionIcon,
+      // PositionIcon,
       options: {
         zoomControl: true,
         mapTypeControl: false,
@@ -84,5 +75,4 @@ export default {
   width: 100%;
   height: 100%;
 }
-
 </style>
