@@ -1,0 +1,98 @@
+.pointer {
+  cursor: pointer;
+}
+
+.primary-color-master {
+  color: $primary-color-master;
+}
+.primary-color-second {
+  color: $primary-color-second;
+}
+.primary-color-third {
+  color: $primary-color-third;
+}
+
+.light-100 {
+  color: $light-100;
+}
+.light-200 {
+  color: $light-200;
+}
+
+.dark-100 {
+  color: $dark-100;
+}
+.dark-200 {
+  color: $dark-200;
+}
+.dark-300 {
+  color: $dark-300;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.3s;
+  border: unset;
+  padding: 10px;
+
+  i {
+    font-size: 15px;
+  }
+}
+
+.btn-primary {
+  border: 1px solid $light-100;
+  color: $light-100;
+  background-color: $dark-200;
+  border-radius: 12px;
+
+  &:hover {
+    background-color: $primary-color-master;
+    color: $dark-200;
+    box-shadow: 3px 3px 0 $light-100;
+  }
+}
+
+.btn-second {
+  border: 1px solid $light-100;
+  color: $light-100;
+  background-color: $dark-100;
+  border-radius: 12px;
+
+  &:hover {
+    background-color: $dark-200;
+  }
+}
+
+.btn-third {
+  border: 1px solid $light-100;
+  color: $light-100;
+  background-color: $dark-100;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $dark-200;
+  }
+}
+
+.btn-text {
+  border: unset;
+  background-color: unset;
+  color: $light-100;
+
+  &:hover {
+    border-bottom: 1px solid $primary-color-master;
+  }
+
+  &.active {
+    color: $primary-color-master;
+  }
+}
+
+.font-size-m {
+  font-size: 16px;
+}
