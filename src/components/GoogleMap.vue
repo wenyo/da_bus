@@ -1,28 +1,16 @@
 <template>
   <GMapMap :center="center" :zoom="15" ref="myMapRef" :options="options">
     <GMapCluster>
+      <!-- my possition -->
       <GMapMarker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
+        :position="center"
         :clickable="true"
-        :draggable="true"
-        @click="center = m.position"
-      />
-      <GMapMarker :position="center" :clickable="true" label="1">
-        <GMapInfoWindow
-          :opened="true"
-          :options="{
-            pixelOffset: {
-              width: 0,
-              height: 12,
-            },
-            maxWidth: 0,
-            maxHeight: 0,
-          }"
-        >
-          <div>00</div>
-        </GMapInfoWindow>
+        :icon="{
+          url: PositionIcon,
+          anchor: { x: 32, y: 32 },
+        }"
+      >
+        <!-- my possition -->
       </GMapMarker>
     </GMapCluster>
   </GMapMap>
@@ -32,7 +20,7 @@
 import { ref } from "vue";
 import { mapState } from "vuex";
 import MapStyle from "../assets/map/MapStyle.json";
-// import PositionIcon from "../assets/img/position.png";
+import PositionIcon from "../assets/img/pos/my-pos-l.svg";
 
 export default {
   setup() {
@@ -45,7 +33,7 @@ export default {
   },
   data() {
     return {
-      // PositionIcon,
+      PositionIcon,
       options: {
         zoomControl: true,
         mapTypeControl: false,

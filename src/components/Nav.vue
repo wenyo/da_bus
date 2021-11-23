@@ -32,9 +32,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 nav {
-  height: 64px;
-  width: 100vw;
+  // height: 64px;
+  width: 100%;
   position: relative;
+  flex: 0 0 64px;
   display: flex;
   justify-content: center;
   align-items: center;

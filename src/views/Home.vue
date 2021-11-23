@@ -1,5 +1,7 @@
 <template>
-  <GoogleMap />
+  <div class="contain">
+    <GoogleMap />
+  </div>
 </template>
 
 <script>
