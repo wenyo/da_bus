@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions, mapState } from "vuex";
 import Nav from "./components/Nav.vue";
 import InfoBar from "./components/InfoBar.vue";
 export default {
@@ -15,12 +15,21 @@ export default {
   mounted() {
     this.findMe();
   },
+  computed: {
+    ...mapState(["pos"]),
+  },
   methods: {
     ...mapMutations(["posGetter"]),
+    ...mapActions(["MyDistrictGetter", "NearBusStopGetter"]),
     findMe() {
       navigator.geolocation.getCurrentPosition(this.posGetter, (error) => {
         console.error(error);
       });
+    },
+  },
+  watch: {
+    pos() {
+      this.NearBusStopGetter();
     },
   },
 };
