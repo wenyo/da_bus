@@ -21,7 +21,11 @@
         :icon="{
           url: BusStopIcon,
         }"
+        @click="MarkerInfoOpen(busStop.StopUID)"
       >
+        <GMapInfoWindow :opened="openedMarkerID === busStop.StopUID">
+          {{ busStop.StopName.Zh_tw }}
+        </GMapInfoWindow>
       </GMapMarker>
     </template>
   </GMapMap>
@@ -60,26 +64,7 @@ export default {
         styles: MapStyle.map_style,
       },
       busStops: [],
-      clusterStyles: [
-        {
-          textColor: "black",
-          url: BusStopIcon,
-          height: 32.2,
-          width: 33,
-        },
-        {
-          textColor: "black",
-          url: BusStopIcon,
-          height: 46,
-          width: 46,
-        },
-        {
-          textColor: "black",
-          url: BusStopIcon,
-          height: 64,
-          width: 64,
-        },
-      ],
+      openedMarkerID: "",
     };
   },
   computed: {
@@ -103,6 +88,9 @@ export default {
           StopUID,
         };
       });
+    },
+    MarkerInfoOpen(id) {
+      this.openedMarkerID = id;
     },
   },
   watch: {

@@ -20,16 +20,11 @@ export default {
   },
   methods: {
     ...mapMutations(["posGetter"]),
-    ...mapActions(["MyDistrictGetter", "NearBusStopGetter"]),
+    ...mapActions(["MyDistrictGetter"]),
     findMe() {
       navigator.geolocation.getCurrentPosition(this.posGetter, (error) => {
         console.error(error);
       });
-    },
-  },
-  watch: {
-    pos() {
-      this.NearBusStopGetter();
     },
   },
 };
