@@ -44,7 +44,7 @@ export const MyCityFetch = ({ lat, lng }) =>
   );
 
 export const NearBusStopFetch = ({ lat, lng }) => {
-  const DistanceInMeters = 200;
+  const DistanceInMeters = 500;
   return BusRequestGet(
     `Stop/NearBy?$top=30&$spatialFilter=nearby(${lat}, ${lng}, ${DistanceInMeters})&$format=JSON`
   );

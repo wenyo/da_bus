@@ -1,5 +1,5 @@
 <template>
-  <GMapMap :center="center" :zoom="18" ref="myMapRef" :options="options">
+  <GMapMap :center="center" :zoom="17" ref="myMapRef" :options="options">
     <!-- my possition -->
     <GMapMarker
       :position="center"
@@ -12,22 +12,24 @@
     </GMapMarker>
     <!-- my possition -->
     <!-- bus stop possition -->
-    <template v-if="busStops.length > 0">
-      <GMapMarker
-        v-for="busStop in busStops"
-        :key="busStop.StopUID"
-        :position="busStop.StopPosition"
-        :clickable="true"
-        :icon="{
-          url: BusStopIcon,
-        }"
-        @click="MarkerInfoOpen(busStop.StopUID)"
-      >
-        <GMapInfoWindow :opened="openedMarkerID === busStop.StopUID">
-          {{ busStop.StopName.Zh_tw }}
-        </GMapInfoWindow>
-      </GMapMarker>
-    </template>
+    <!-- <GMapCluster :styles="clusterStyles" :minimumClusterSize="3" > -->
+      <template v-if="busStops.length > 0">
+        <GMapMarker
+          v-for="busStop in busStops"
+          :key="busStop.StopUID"
+          :position="busStop.StopPosition"
+          :clickable="true"
+          :icon="{
+            url: BusStopIcon,
+          }"
+          @click="MarkerInfoOpen(busStop.StopUID)"
+        >
+          <GMapInfoWindow :opened="openedMarkerID === busStop.StopUID">
+            {{ busStop.StopName.Zh_tw }}
+          </GMapInfoWindow>
+        </GMapMarker>
+      </template>
+    <!-- </GMapCluster> -->
   </GMapMap>
 </template>
 
@@ -37,6 +39,9 @@ import { mapState, mapActions } from "vuex";
 import MapStyle from "../assets/map/MapStyle.json";
 import PositionIcon from "../assets/img/pos/my-pos-l.svg";
 import BusStopIcon from "../assets/img/pos/busstop-pos.svg";
+import Test1 from "../assets/img/pos/after-pos.svg";
+import Test2 from "../assets/img/pos/end-pos.svg";
+import Test3 from "../assets/img/pos/nearby-pos.svg";
 
 export default {
   setup() {
@@ -65,6 +70,20 @@ export default {
       },
       busStops: [],
       openedMarkerID: "",
+      clusterStyles: [
+        {
+          textColor: "red",
+          url: Test3,
+        },
+        {
+          textColor: "white",
+          url: Test1,
+        },
+        {
+          textColor: "white",
+          url: Test2,
+        },
+      ],
     };
   },
   computed: {
@@ -77,7 +96,8 @@ export default {
     ...mapActions(["NearBusStopGetter"]),
     busStopsForm(bus_stops_fetch) {
       return bus_stops_fetch.map((bus_info) => {
-        const { StopName, StopPosition, StopID, StopUID } = bus_info;
+        const { StopName, StopPosition, StopID, StopUID, StationGroupID } =
+          bus_info;
         return {
           StopName,
           StopPosition: {
@@ -86,6 +106,7 @@ export default {
           },
           StopID,
           StopUID,
+          StationGroupID,
         };
       });
     },

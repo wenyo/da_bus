@@ -45,5 +45,6 @@ export default {
 .contain {
   flex: 1 1 0;
   flex-wrap: wrap;
+  display: flex;
 }
 </style>
