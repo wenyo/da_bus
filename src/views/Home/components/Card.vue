@@ -21,12 +21,14 @@
         <li>
           <div>
             <i class="icon-clock"></i>
-            <span>17 分鐘</span>
+            <span class="light-100">17</span>
+            <span>分鐘</span>
           </div>
 
           <div>
             <i class="icon-user"></i>
-            <span>18/45 位乘客</span>
+            <span class="light-100">18/45</span>
+            <span>位乘客</span>
           </div>
         </li>
       </ul>
