@@ -1,5 +1,11 @@
 <template>
-  <GMapMap :center="center" :zoom="17" ref="myMapRef" :options="options">
+  <GMapMap
+    :center="center"
+    :zoom="17"
+    ref="myMapRef"
+    :options="options"
+    @center_changed="updateRouteLatLng"
+  >
     <!-- my possition -->
     <GMapMarker
       :position="center"
@@ -12,23 +18,23 @@
     </GMapMarker>
     <!-- my possition -->
     <!-- bus stop possition -->
-    <!-- <GMapCluster :styles="clusterStyles" :minimumClusterSize="3" > -->
-      <template v-if="busStops.length > 0">
-        <GMapMarker
-          v-for="busStop in busStops"
-          :key="busStop.StopUID"
-          :position="busStop.StopPosition"
-          :clickable="true"
-          :icon="{
-            url: BusStopIcon,
-          }"
-          @click="MarkerInfoOpen(busStop.StopUID)"
-        >
-          <GMapInfoWindow :opened="openedMarkerID === busStop.StopUID">
-            {{ busStop.StopName.Zh_tw }}
-          </GMapInfoWindow>
-        </GMapMarker>
-      </template>
+    <!-- <GMapCluster :styles="clusterStyles" :minimumClusterSize="3" > need fix: 定位不在地圖上，而是畫面正中間 -->
+    <template v-if="busStops.length > 0">
+      <GMapMarker
+        v-for="busStop in busStops"
+        :key="busStop.StopUID"
+        :position="busStop.StopPosition"
+        :clickable="true"
+        :icon="{
+          url: BusStopIcon,
+        }"
+        @click="MarkerInfoOpen(busStop.StopUID)"
+      >
+        <GMapInfoWindow :opened="openedMarkerID === busStop.StopUID">
+          {{ busStop.StopName.Zh_tw }}
+        </GMapInfoWindow>
+      </GMapMarker>
+    </template>
     <!-- </GMapCluster> -->
   </GMapMap>
 </template>
@@ -112,6 +118,10 @@ export default {
     },
     MarkerInfoOpen(id) {
       this.openedMarkerID = id;
+    },
+    updateRouteLatLng() {
+      // console.log(place.lat());
+      // console.log(place.lat());
     },
   },
   watch: {
