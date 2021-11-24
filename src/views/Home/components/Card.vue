@@ -55,8 +55,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .cards {
-  
-  li {
+  & > li {
     position: relative;
     background-color: $dark-200;
     border-radius: 16px;
