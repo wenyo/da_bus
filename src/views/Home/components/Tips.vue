@@ -25,6 +25,7 @@ div {
   align-items: center;
   p {
     margin: 0 20px;
+    line-height: 1.3em;
   }
 }
 i {

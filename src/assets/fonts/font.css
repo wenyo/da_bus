@@ -18,19 +18,19 @@
 }
 @font-face {
   font-family: "Noto Sans TC";
-  font-style: normal;
+  font-style: bold;
   font-weight: 500;
   src: url("NotoSansTC-Medium.otf");
 }
 @font-face {
   font-family: "Noto Sans TC";
-  font-style: normal;
+  font-style: bold;
   font-weight: 700;
   src: url("NotoSansTC-Black.otf");
 }
 @font-face {
   font-family: "Noto Sans TC";
-  font-style: normal;
+  font-style: bolder;
   font-weight: 900;
   src: url("NotoSansTC-Bold.otf");
 }
@@ -39,4 +39,6 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: 'Noto Sans TC';
+  font-weight: 400;
+  letter-spacing: 0.05em;
 }

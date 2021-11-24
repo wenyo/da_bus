@@ -9,12 +9,12 @@
 </template>
 
 <script>
-const TYPE_MOUDLE = ["primary", "second", "third", "text"];
+const TYPE_MODULE = ["primary", "second", "third", "text"];
 export default {
   props: {
     type: {
       type: String,
-      default: TYPE_MOUDLE[1],
+      default: TYPE_MODULE[1],
     },
     icon: {
       type: String,
@@ -49,7 +49,7 @@ export default {
 }
 
 .btn-second {
-  padding: 10px 20px;
+  padding: 13px 20px;
 
   i {
     margin-right: 20px;

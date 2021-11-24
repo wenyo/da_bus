@@ -11,7 +11,7 @@
       :position="center"
       :clickable="true"
       :icon="{
-        url: PositionIcon,
+        url: MyPosL,
         anchor: { x: 32, y: 32 },
       }"
     >
@@ -26,7 +26,7 @@
         :position="busStop.StopPosition"
         :clickable="true"
         :icon="{
-          url: BusStopIcon,
+          url: BusstopPos,
         }"
         @click="MarkerInfoOpen(busStop.StopUID)"
       >
@@ -43,11 +43,7 @@
 import { ref } from "vue";
 import { mapState, mapActions } from "vuex";
 import MapStyle from "../assets/map/MapStyle.json";
-import PositionIcon from "../assets/img/pos/my-pos-l.svg";
-import BusStopIcon from "../assets/img/pos/busstop-pos.svg";
-import Test1 from "../assets/img/pos/after-pos.svg";
-import Test2 from "../assets/img/pos/end-pos.svg";
-import Test3 from "../assets/img/pos/nearby-pos.svg";
+import { MyPosL, BusstopPos } from "../components/PosIconPath";
 
 export default {
   setup() {
@@ -60,8 +56,8 @@ export default {
   },
   data() {
     return {
-      PositionIcon,
-      BusStopIcon,
+      MyPosL,
+      BusstopPos,
       options: {
         zoomControl: true,
         mapTypeControl: false,
@@ -79,15 +75,15 @@ export default {
       clusterStyles: [
         {
           textColor: "red",
-          url: Test3,
+          url: BusstopPos,
         },
         {
           textColor: "white",
-          url: Test1,
+          url: BusstopPos,
         },
         {
           textColor: "white",
-          url: Test2,
+          url: BusstopPos,
         },
       ],
     };
