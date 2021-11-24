@@ -32,7 +32,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 nav {
-  // height: 64px;
   width: 100%;
   position: relative;
   flex: 0 0 64px;

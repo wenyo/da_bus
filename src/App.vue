@@ -43,6 +43,7 @@ export default {
   flex-direction: column;
 }
 .contain {
+  padding-right: 64px;
   flex: 1 1 0;
   flex-wrap: wrap;
   display: flex;
