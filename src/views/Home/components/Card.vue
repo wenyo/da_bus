@@ -1,7 +1,9 @@
 <template>
   <ul class="cards">
-    <li>
-      <div class="title font-size-l light-100">132</div>
+    <li v-for="RouteUID in Object.keys(routeInfoByStop)" :key="RouteUID">
+      <div class="title font-size-l light-100">
+        {{ routeInfoByStop[RouteUID]["RouteName"] }}
+      </div>
       <ul class="dark-300">
         <li>
           <div>
@@ -9,35 +11,39 @@
               <img :src="StartPos" alt="公車起點站" />
               <div class="decoration-line"></div>
             </div>
-            <span>國鼎圖書館</span>
+            <span>{{ routeInfoByStop[RouteUID]["DepartureStopNameZh"] }}</span>
           </div>
           <div>
             <div class="icon-img">
               <img :src="EndPos" alt="公車終點站" />
             </div>
-            <span>中壢公車站</span>
+            <span>{{
+              routeInfoByStop[RouteUID]["DestinationStopNameZh"]
+            }}</span>
           </div>
         </li>
         <li>
-          <div>
+          <div v-if="busInfo[RouteUID]['EstimateTime']">
             <i class="icon-clock"></i>
-            <span class="light-100">17</span>
+            <span class="light-100">{{
+              busInfo[RouteUID]["EstimateTime"] / 60
+            }}</span>
             <span>分鐘</span>
           </div>
 
-          <div>
+          <!-- <div>
             <i class="icon-user"></i>
             <span class="light-100">18/45</span>
             <span>位乘客</span>
-          </div>
+          </div> -->
         </li>
       </ul>
       <div class="ring">
         <i class="icon-bell light-100"></i>
         <!-- <i class="icon-bell-fill primary-color-master"></i> -->
       </div>
-      <div class="nex-bus light-100">
-        <div>463-FT</div>
+      <div class="nex-bus light-100" v-if="busInfo[RouteUID].PlateNumb">
+        <div>{{ busInfo[RouteUID].PlateNumb }}</div>
       </div>
     </li>
   </ul>
@@ -47,6 +53,17 @@
 import { StartPos, EndPos } from "../../../components/PosIconPath";
 
 export default {
+  name: "Card",
+  props: ["routeInfoByStop", "busInfo"],
+  watch: {
+    busInfo() {
+      console.log(this.busInfo[Object.keys(this.busInfo)[0]]);
+      console.log(Object.keys(this.busInfo)[0]);
+    },
+    routeInfoByStop() {
+      console.log(this.routeInfoByStop);
+    },
+  },
   data() {
     return {
       StartPos,
@@ -63,6 +80,7 @@ export default {
     border-radius: 16px;
     padding: 20px 24px;
     overflow: hidden;
+    margin-bottom: 20px;
   }
   .title {
     margin-bottom: 16px;
@@ -71,7 +89,6 @@ export default {
   ul {
     display: flex;
     flex-wrap: wrap;
-
     li {
       flex: 0 0 50%;
 
@@ -126,10 +143,11 @@ export default {
   height: 100%;
   width: 40px;
   display: flex;
+  justify-content: center;
   align-items: center;
 
   & > div {
-    transform: rotate(90deg) translateY(50%);
+    transform: rotate(90deg);
     white-space: nowrap;
   }
 }

@@ -28,7 +28,7 @@
         :icon="{
           url: BusstopPos,
         }"
-        @click="MarkerInfoOpen(busStop.StopUID)"
+        @click="MarkerInfoOpen(busStop.StopUID, busStop.StationID)"
       >
         <GMapInfoWindow :opened="openedMarkerID === busStop.StopUID">
           {{ busStop.StopName.Zh_tw }}
@@ -41,7 +41,7 @@
 
 <script>
 import { ref } from "vue";
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 import MapStyle from "../assets/map/MapStyle.json";
 import { MyPosL, BusstopPos } from "../components/PosIconPath";
 
@@ -53,6 +53,15 @@ export default {
       myMapRef,
       popUp,
     };
+  },
+  props: {
+    busStops: {
+      type: [],
+    },
+    clickBusStop: {
+      type: Function,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -70,7 +79,6 @@ export default {
         fullscreenControl: false,
         styles: MapStyle.map_style,
       },
-      busStops: [],
       openedMarkerID: "",
       clusterStyles: [
         {
@@ -95,7 +103,6 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["NearBusStopGetter"]),
     busStopsForm(bus_stops_fetch) {
       return bus_stops_fetch.map((bus_info) => {
         const { StopName, StopPosition, StopID, StopUID, StationGroupID } =
@@ -112,19 +119,13 @@ export default {
         };
       });
     },
-    MarkerInfoOpen(id) {
-      this.openedMarkerID = id;
+    MarkerInfoOpen(stop_uid, station_id) {
+      this.openedMarkerID = stop_uid;
+      this.clickBusStop(station_id);
     },
     updateRouteLatLng() {
       // console.log(place.lat());
       // console.log(place.lat());
-    },
-  },
-  watch: {
-    pos() {
-      this.NearBusStopGetter().then(
-        (res) => (this.busStops = this.busStopsForm(res))
-      );
     },
   },
 };

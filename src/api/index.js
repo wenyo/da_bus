@@ -49,3 +49,13 @@ export const NearBusStopFetch = ({ lat, lng }) => {
     `Stop/NearBy?$top=30&$spatialFilter=nearby(${lat}, ${lng}, ${DistanceInMeters})&$format=JSON`
   );
 };
+
+export const RouteInfoFromStationFetch = ({ city, station_id }) =>
+  BusRequestGet(
+    `Route/City/${city}/PassThrough/Station/${station_id}?top=30&$format=JSON`
+  );
+
+export const EstimatedTimeOfArrivalFromStationFetch = ({ city, station_id }) =>
+  BusRequestGet(
+    `EstimatedTimeOfArrival/City/${city}/PassThrough/Station/${station_id}?$top=30&$format=JSON`
+  );

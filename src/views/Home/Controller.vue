@@ -17,11 +17,12 @@
         </div>
       </div>
     </div>
-    <Card />
+    <Card :bus-info="busInfo" :route-info-by-stop="routeInfoByStop" />
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Tips from "./components/Tips.vue";
 import Card from "./components/Card.vue";
 import Input from "../../components/Input.vue";
@@ -34,6 +35,9 @@ export default {
     Card,
     Input,
     Button,
+  },
+  computed: {
+    ...mapState(["busStopID", "routeInfoByStop", "busInfo"]),
   },
   data() {
     return {
