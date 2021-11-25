@@ -36,7 +36,7 @@
         <i class="icon-bell light-100"></i>
         <!-- <i class="icon-bell-fill primary-color-master"></i> -->
       </div>
-      <div class="nex-bus">
+      <div class="nex-bus light-100">
         <div>463-FT</div>
       </div>
     </li>
@@ -124,11 +124,13 @@ export default {
   right: 0;
   background-color: $primary-color-third;
   height: 100%;
+  width: 40px;
   display: flex;
   align-items: center;
 
   & > div {
-    transform: rotate(90deg);
+    transform: rotate(90deg) translateY(50%);
+    white-space: nowrap;
   }
 }
 
