@@ -137,7 +137,7 @@ export default {
 .ring {
   position: absolute;
   font-size: 20px;
-  top: 10px;
-  right: 70px;
+  top: 20px;
+  right: 60px;
 }
 </style>
