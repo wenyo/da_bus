@@ -60,7 +60,7 @@ export default {
     }
 
     &:last-child {
-      flex: 0 1 30%;
+      flex: 0 1 35%;
     }
   }
 }
