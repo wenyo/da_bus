@@ -23,10 +23,10 @@
           </div>
         </li>
         <li>
-          <div v-if="busInfo[RouteUID]['EstimateTime']">
+          <div v-if="routeInfoByStop[RouteUID]['EstimateTime'] > 0">
             <i class="icon-clock"></i>
             <span class="light-100">{{
-              busInfo[RouteUID]["EstimateTime"] / 60
+              routeInfoByStop[RouteUID]["EstimateTime"] / 60
             }}</span>
             <span>分鐘</span>
           </div>
@@ -42,8 +42,11 @@
         <i class="icon-bell light-100"></i>
         <!-- <i class="icon-bell-fill primary-color-master"></i> -->
       </div>
-      <div class="nex-bus light-100" v-if="busInfo[RouteUID].PlateNumb">
-        <div>{{ busInfo[RouteUID].PlateNumb }}</div>
+      <div class="nex-bus">
+        <div class="light-100" v-if="routeInfoByStop[RouteUID].PlateNumb">
+          {{ routeInfoByStop[RouteUID].PlateNumb }}
+        </div>
+        <div class="dark-100" v-else>尚未發車</div>
       </div>
     </li>
   </ul>
@@ -54,13 +57,10 @@ import { StartPos, EndPos } from "../../../components/PosIconPath";
 
 export default {
   name: "Card",
-  props: ["routeInfoByStop", "busInfo"],
+  props: ["routeInfoByStop"],
   watch: {
-    busInfo() {
-      console.log(this.busInfo[Object.keys(this.busInfo)[0]]);
-      console.log(Object.keys(this.busInfo)[0]);
-    },
     routeInfoByStop() {
+      console.log("routeInfoByStop");
       console.log(this.routeInfoByStop);
     },
   },

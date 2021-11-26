@@ -1,6 +1,8 @@
 <template>
   <div class="contain">
-    <GoogleMap :bus-stops="busStops" :click-bus-stop="clickBusStop" />
+    <div id="map">
+      <GoogleMap :bus-stops="busStops" :click-bus-stop="clickBusStop" />
+    </div>
     <Controller />
   </div>
 </template>
@@ -17,7 +19,7 @@ export default {
     Controller,
   },
   computed: {
-    ...mapState(["pos", "busStops", "busStopID", "routeInfoByStop", "busInfo"]),
+    ...mapState(["pos", "busStops", "busStopID", "routeInfoByStop"]),
   },
   methods: {
     ...mapMutations(["busStopIDGetter"]),
@@ -25,10 +27,8 @@ export default {
       "NearBusStopGetter",
       "MyDistrictGetter",
       "RouteFromStationGetter",
-      "EstimatedTimeOfArrivalFromStationGetter",
     ]),
     clickBusStop(StationID) {
-      console.log('clickBusStop');
       this.busStopIDGetter(StationID);
     },
   },
@@ -38,12 +38,7 @@ export default {
       this.NearBusStopGetter();
     },
     busStopID() {
-      console.log('busStopID');
       this.RouteFromStationGetter(this.busStopID);
-    },
-    routeInfoByStop() {
-      console.log('routeInfoByStop');
-      this.EstimatedTimeOfArrivalFromStationGetter(this.busStopID);
     },
   },
 };
@@ -51,12 +46,16 @@ export default {
 <style lang="scss" scoped>
 .contain {
   flex-direction: row;
+  height: calc(100% - 60px);
 
-  .vue-map-container {
-    flex: 0 2 70%;
+  #map {
+    border-radius: 0px 24px 24px 24px;
+    overflow: hidden;
+    flex: 0 2 60%;
+    height: 100%;
   }
   .controller {
-    flex: 0 0 30%;
+    flex: 0 0 40%;
     padding-left: 30px;
   }
 }

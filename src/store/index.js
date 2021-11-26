@@ -6,6 +6,39 @@ import {
   EstimatedTimeOfArrivalFromStationFetch,
 } from "../api";
 
+function routeInfoByStopForm(route_from_station, result = {}) {
+  let vResult = JSON.parse(JSON.stringify(result));
+  for (const route_info of route_from_station) {
+    const { DepartureStopNameZh, DestinationStopNameZh, RouteName, RouteUID } =
+      route_info;
+    vResult[RouteUID] = {
+      ...vResult[RouteUID],
+      RouteUID,
+      DepartureStopNameZh,
+      DestinationStopNameZh,
+      RouteName: RouteName.Zh_tw,
+    };
+  }
+  return vResult;
+}
+function routeEstimateByStopForm(route_estimate_from_station, result = {}) {
+  let vResult = JSON.parse(JSON.stringify(result));
+
+  for (const route_info of route_estimate_from_station) {
+    const { Estimates, EstimateTime, PlateNumb, RouteUID, Direction } =
+      route_info;
+    vResult[RouteUID] = {
+      ...vResult[RouteUID],
+      Estimates,
+      EstimateTime: !EstimateTime ? -1 : parseInt(EstimateTime),
+      PlateNumb,
+      RouteUID,
+      Direction,
+    };
+  }
+  return vResult;
+}
+
 export default createStore({
   state: {
     pos: {
@@ -16,7 +49,6 @@ export default createStore({
     busStopID: "",
     busStops: [],
     routeInfoByStop: {},
-    busInfo: {},
   },
   mutations: {
     posGetter(state, pos) {
@@ -27,14 +59,12 @@ export default createStore({
       };
     },
     myCityGetter(state, city_info) {
-      console.log(city_info[0].City);
       state.myCity = city_info[0].City;
     },
     busStopIDGetter(state, StationID) {
       state.busStopID = StationID;
     },
     busStopsGetter(state, bus_stops_fetch) {
-      console.log(bus_stops_fetch);
       state.busStops = bus_stops_fetch.map((bus_info) => {
         const {
           StopName,
@@ -57,40 +87,8 @@ export default createStore({
         };
       });
     },
-    routeInfoByStopGetter(state, route_from_station) {
-      let vResult = {};
-      for (const route_info of route_from_station) {
-        const {
-          DepartureStopNameZh,
-          DestinationStopNameZh,
-          RouteName,
-          RouteUID,
-        } = route_info;
-        vResult[RouteUID] = {
-          RouteUID,
-          DepartureStopNameZh,
-          DestinationStopNameZh,
-          RouteName: RouteName.Zh_tw,
-        };
-      }
+    routeInfoByStopGetter(state, vResult) {
       state.routeInfoByStop = vResult;
-    },
-    routeEstimateByStop(state, route_estimate_from_station) {
-      let vResult = {};
-
-      for (const route_info of route_estimate_from_station) {
-        const { Estimates, EstimateTime, PlateNumb, RouteUID, Direction } =
-          route_info;
-        vResult[RouteUID] = {
-          Estimates,
-          EstimateTime,
-          PlateNumb,
-          RouteUID,
-          Direction,
-        };
-      }
-
-      state.busInfo = vResult;
     },
   },
   actions: {
@@ -104,19 +102,24 @@ export default createStore({
         commit("busStopsGetter", bus_stops_fetch)
       );
     },
-    RouteFromStationGetter({ state, commit }, station_id) {
-      RouteInfoFromStationFetch({ city: state.myCity, station_id }).then(
+    async RouteFromStationGetter({ state, commit }, station_id) {
+      let vResult = {};
+      await RouteInfoFromStationFetch({ city: state.myCity, station_id }).then(
         (route_from_station) =>
-          commit("routeInfoByStopGetter", route_from_station)
+          (vResult = routeInfoByStopForm(route_from_station, vResult))
       );
-    },
-    EstimatedTimeOfArrivalFromStationGetter({ state, commit }, station_id) {
-      EstimatedTimeOfArrivalFromStationFetch({
+
+      await EstimatedTimeOfArrivalFromStationFetch({
         city: state.myCity,
         station_id,
-      }).then((route_estimate_from_station) =>
-        commit("routeEstimateByStop", route_estimate_from_station)
+      }).then(
+        (route_estimate_from_station) =>
+          (vResult = routeEstimateByStopForm(
+            route_estimate_from_station,
+            vResult
+          ))
       );
+      commit("routeInfoByStopGetter", vResult);
     },
   },
   modules: {},

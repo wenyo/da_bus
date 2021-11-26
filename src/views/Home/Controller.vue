@@ -1,5 +1,5 @@
 <template>
-  <div class="controller">
+  <div class="controller scroll-y">
     <Tips />
     <Input v-model="searchText" />
     <div class="vice-tab">
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <Card :bus-info="busInfo" :route-info-by-stop="routeInfoByStop" />
+    <Card :route-info-by-stop="routeInfoByStop" />
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
     Button,
   },
   computed: {
-    ...mapState(["busStopID", "routeInfoByStop", "busInfo"]),
+    ...mapState(["busStopID", "routeInfoByStop"]),
   },
   data() {
     return {
@@ -49,6 +49,10 @@ export default {
 
 <style lang="scss" scoped>
 .controller {
+  padding-right: 64px;
+  padding-bottom: 64px;
+  height: calc(100vh - 64px);
+
   & > * {
     margin-bottom: 24px;
   }
