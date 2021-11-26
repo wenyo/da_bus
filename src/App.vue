@@ -4,14 +4,16 @@
     <Nav />
     <router-view />
   </div>
+    <Footer />
 </template>
 
 <script>
 import { mapMutations, mapActions, mapState } from "vuex";
 import Nav from "./components/Nav.vue";
+import Footer from "./components/Footer.vue";
 import InfoBar from "./components/InfoBar.vue";
 export default {
-  components: { Nav, InfoBar },
+  components: { Nav, InfoBar, Footer },
   mounted() {
     this.findMe();
   },
@@ -38,12 +40,12 @@ export default {
   display: flex;
 }
 .main {
+  height: calc(100vh - 60px);
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
 }
 .contain {
-  padding-right: 64px;
   flex: 1 1 0;
   flex-wrap: wrap;
   display: flex;
