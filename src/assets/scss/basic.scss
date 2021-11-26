@@ -118,3 +118,17 @@ button {
 .font-weight-900 {
   font-weight: 900;
 }
+
+.scroll-y {
+  overflow-y: scroll;
+  height: 100px;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 100%;
+    background-color: $dark-100;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $dark-400;
+  }
+}
